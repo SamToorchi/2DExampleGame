@@ -1,0 +1,178 @@
+[gd_scene load_steps=46 format=2]
+
+[ext_resource path="res://FirstScene.gd" type="Script" id=1]
+[ext_resource path="res://62999356-seamless-game-background-flat-style-2d-game-application.jpg" type="Texture" id=2]
+[ext_resource path="res://RigidBody2D.gd" type="Script" id=3]
+[ext_resource path="res://sprite/freeknight/png/Jump (1).png" type="Texture" id=4]
+[ext_resource path="res://sprite/freeknight/png/Jump (2).png" type="Texture" id=5]
+[ext_resource path="res://sprite/freeknight/png/Jump (3).png" type="Texture" id=6]
+[ext_resource path="res://sprite/freeknight/png/Jump (4).png" type="Texture" id=7]
+[ext_resource path="res://sprite/freeknight/png/Jump (5).png" type="Texture" id=8]
+[ext_resource path="res://sprite/freeknight/png/Jump (6).png" type="Texture" id=9]
+[ext_resource path="res://sprite/freeknight/png/Jump (7).png" type="Texture" id=10]
+[ext_resource path="res://sprite/freeknight/png/Jump (8).png" type="Texture" id=11]
+[ext_resource path="res://sprite/freeknight/png/Jump (9).png" type="Texture" id=12]
+[ext_resource path="res://sprite/freeknight/png/Jump (10).png" type="Texture" id=13]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (1).png" type="Texture" id=14]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (2).png" type="Texture" id=15]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (3).png" type="Texture" id=16]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (4).png" type="Texture" id=17]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (5).png" type="Texture" id=18]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (6).png" type="Texture" id=19]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (7).png" type="Texture" id=20]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (8).png" type="Texture" id=21]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (9).png" type="Texture" id=22]
+[ext_resource path="res://sprite/freeknight/png/JumpAttack (10).png" type="Texture" id=23]
+[ext_resource path="res://sprite/freeknight/png/Run (1).png" type="Texture" id=24]
+[ext_resource path="res://sprite/freeknight/png/Run (2).png" type="Texture" id=25]
+[ext_resource path="res://sprite/freeknight/png/Run (3).png" type="Texture" id=26]
+[ext_resource path="res://sprite/freeknight/png/Run (5).png" type="Texture" id=27]
+[ext_resource path="res://sprite/freeknight/png/Run (4).png" type="Texture" id=28]
+[ext_resource path="res://sprite/freeknight/png/Run (6).png" type="Texture" id=29]
+[ext_resource path="res://sprite/freeknight/png/Run (7).png" type="Texture" id=30]
+[ext_resource path="res://sprite/freeknight/png/Run (8).png" type="Texture" id=31]
+[ext_resource path="res://sprite/freeknight/png/Run (9).png" type="Texture" id=32]
+[ext_resource path="res://sprite/freeknight/png/Run (10).png" type="Texture" id=33]
+[ext_resource path="res://sprite/freeknight/png/Walk (10).png" type="Texture" id=34]
+[ext_resource path="res://AnimatedSprite.gd" type="Script" id=35]
+[ext_resource path="res://Whoosh .wav" type="AudioStream" id=36]
+[ext_resource path="res://CollisionShape2D.gd" type="Script" id=37]
+[ext_resource path="res://Button.gd" type="Script" id=38]
+[ext_resource path="res://61155.svg" type="Texture" id=39]
+[ext_resource path="res://Button2.gd" type="Script" id=40]
+[ext_resource path="res://Label.gd" type="Script" id=41]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "jump",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "jumpattack",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ) ],
+"loop": true,
+"name": "run",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 34 ) ],
+"loop": true,
+"name": "stay",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 107.964, 163.727 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 600, 9.87926 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 300 )
+
+[node name="WorldRoot" type="Node"]
+script = ExtResource( 1 )
+
+[node name="62999356-seamless-game-background-flat-style-2d-game-application" type="Sprite" parent="."]
+position = Vector2( 522.483, 303.032 )
+scale = Vector2( 0.810542, 0.92065 )
+texture = ExtResource( 2 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+mode = 2
+mass = 108.56
+gravity_scale = 45.0
+can_sleep = false
+angular_damp = 0.0
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RigidBody2D"]
+position = Vector2( 170.369, 366.975 )
+scale = Vector2( 0.515573, 0.505953 )
+frames = SubResource( 1 )
+animation = "stay"
+speed_scale = 1.48
+playing = true
+script = ExtResource( 35 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RigidBody2D/AnimatedSprite"]
+stream = ExtResource( 36 )
+max_distance = 1000.0
+attenuation = 0.000205297
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( 168.045, 366.071 )
+shape = SubResource( 2 )
+script = ExtResource( 37 )
+
+[node name="bottom" type="StaticBody2D" parent="."]
+editor/display_folded = true
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom"]
+position = Vector2( 491.942, 540.216 )
+shape = SubResource( 3 )
+
+[node name="top" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top"]
+position = Vector2( 522.975, 10.3446 )
+shape = SubResource( 3 )
+
+[node name="left_wall" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_wall"]
+position = Vector2( 5.74698, 233.327 )
+shape = SubResource( 4 )
+
+[node name="right_wall" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_wall"]
+position = Vector2( 1039.05, 249.419 )
+shape = SubResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 990.858
+margin_top = 15.973
+margin_right = 1045.86
+margin_bottom = 83.973
+
+[node name="Button" type="Button" parent="."]
+margin_left = 977.335
+margin_top = 5.223
+margin_right = 1029.33
+margin_bottom = 57.223
+script = ExtResource( 38 )
+
+[node name="61155" type="TextureRect" parent="Button"]
+margin_left = 3.1225
+margin_top = 3.38713
+margin_right = 49.1225
+margin_bottom = 48.3871
+texture = ExtResource( 39 )
+expand = true
+
+[node name="Button2" type="Button" parent="."]
+margin_right = 214.0
+margin_bottom = 33.0
+text = "get Data from Server"
+script = ExtResource( 40 )
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Button2"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 219.0
+margin_top = 7.0
+margin_right = 964.0
+margin_bottom = 56.0
+script = ExtResource( 41 )
+[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_Button2_pressed"]
