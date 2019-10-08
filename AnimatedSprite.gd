@@ -42,7 +42,7 @@ func _process(delta):
 		yield(t, "timeout")
 	
 func on_AnimatedSprite_animation_finished():
-	animation = "stay"
+	self.animation = "stay"
 	
 func _input(event):
 	if event.is_action_released("ui_right") || event.is_action_released("ui_left") :

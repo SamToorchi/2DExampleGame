@@ -13,11 +13,6 @@ func _process(delta):
 	t.set_one_shot(true)
 	self.add_child(t)
 	
-	
-	if Input.is_key_pressed(KEY_UP):
-		self.position.y -= 2
-	if Input.is_key_pressed(KEY_DOWN):
-		self.position.y += 2
 	if Input.is_key_pressed(KEY_LEFT):
 		self.position.x -= 2
 	if Input.is_key_pressed(KEY_RIGHT):
