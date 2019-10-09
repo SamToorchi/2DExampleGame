@@ -1,6 +1,5 @@
 extends Node
 
-# declare our variables
 var currentLevel
 var score = 0
 var lives = 0
@@ -8,14 +7,10 @@ var lives = 0
 
 
 func _ready():
-	#$Label.show_modal(true)
-	
-	# first determine if a Saves directory exists.
-	# if it doesn't, create it.
 	var dir = Directory.new()
-	if !dir.dir_exists("user://Saves"):
-		dir.open("user://")
-		dir.make_dir("user://Saves")
+	if !dir.dir_exists("res://Saves"):
+		dir.open("res://")
+		dir.make_dir("res://Saves")
 		
 func get_score():
 	return score
@@ -35,14 +30,8 @@ func get_level():
 	
 func set_level(var levelName):
 	currentLevel = levelName
-	#get_tree().change_scene(levelName)
 	print("set_level")
 	
-# the following functions save and load a game, depending on what the player does at the main/pause menus.
-# at the end of each level, the save function is automatically called.
-
-# first create a dictionary to store the save info in. Similar to a serializable class in Unity in which 
-# the player data would be stored.
 
 var GameData = {
 		level = "",
@@ -52,7 +41,7 @@ var GameData = {
 
 func save_game_state(var saveName):
 	var saveGame = File.new()
-	saveGame.open("user://Saves/" + saveName + ".sve", File.WRITE)
+	saveGame.open("res://Saves/" + saveName + ".json", File.WRITE)
 	
 	var data = GameData
 	
@@ -61,8 +50,11 @@ func save_game_state(var saveName):
 	data.lives = get_lives()
 	
 	saveGame.store_line(JSON.print(data))
-	#saveGame.store_line(data)
 	saveGame.close()
+	
+	print(get_level())
+	print(get_lives())
+	print(get_score())
 	
 # this loads a previously saved game state
 func load_game_state(var saveName):
@@ -71,50 +63,69 @@ func load_game_state(var saveName):
 	var loadGame = File.new()
 	
 	# see if the file actually exists before opening it
-	if !loadGame.file_exists("user://Saves/" + saveName + ".sve"):
+	if !loadGame.file_exists("res://Saves/" + saveName + ".json"):
 		print("File not found! Aborting...")
 		return
 		
 	# use an empty dictionary to assign temporary data to
 	var currentLine = {}
 	# read the data in
-	loadGame.open("user://Saves/" + saveName + ".sve", File.READ)
+	loadGame.open("res://Saves/" + saveName + ".json", File.READ)
 	currentLine = parse_json(loadGame.get_line())
 
 	currentLevel = currentLine["level"]
 	lives = currentLine["lives"]
 	score = currentLine["score"]
+	
+	set_level(currentLevel)
+	set_lives(lives)
+	set_score(score)
 
 	loadGame.close()
 	print(currentLevel)
 	print(lives)
 	print(score)
 	
-func new_game():
+	print(get_level())
+	print(get_lives())
+	print(get_score())
+	
+func new_game(saveName):
+	
+	var loadGame = Directory.new()
+	if loadGame.file_exists("res://Saves/" + saveName + ".json"):
+		loadGame.remove("res://Saves/")
+		
 	#initialize default variables
-	currentLevel = "user://FirstScene.tscn"
+	currentLevel = "res://FirstScene.tscn"
 	set_score(0)
-	set_lives(3)
+	set_lives(4)
 	set_level(currentLevel)
 	
-
+	print(get_level())
+	print(get_lives())
+	print(get_score())
+	
+func delete_game(saveName):
+	var loadGame = Directory.new()
+	if loadGame.file_exists("res://Saves/" + saveName + ".json"):
+		loadGame.remove("res://Saves/" + saveName + ".json")
+	print ('removed')
 
 func _on_Button_pressed():
 	get_tree().quit()
 	
 func _on_Save_pressed():
-
 	save_game_state("MyGame")
 	print("Save Complete")
-
-	
-
 
 func _on_load_pressed():
 	load_game_state("MyGame")
 	print("load Complete")
 
-
 func _on_newGame_pressed():
-	new_game()
+	new_game("MyGame")
 	print("new Game loaded")
+
+func _on_removeSaveFile_pressed():
+	delete_game("MyGame")

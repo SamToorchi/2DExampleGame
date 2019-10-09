@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://FirstScene.gd" type="Script" id=1]
 [ext_resource path="res://62999356-seamless-game-background-flat-style-2d-game-application.jpg" type="Texture" id=2]
@@ -40,8 +40,6 @@
 [ext_resource path="res://Button.gd" type="Script" id=38]
 [ext_resource path="res://61155.svg" type="Texture" id=39]
 [ext_resource path="res://Button2.gd" type="Script" id=40]
-[ext_resource path="res://Label.gd" type="Script" id=41]
-[ext_resource path="res://Save.gd" type="Script" id=42]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -159,9 +157,10 @@ texture = ExtResource( 39 )
 expand = true
 
 [node name="Button2" type="Button" parent="."]
+editor/display_folded = true
 margin_right = 214.0
 margin_bottom = 33.0
-text = "get Data from Server"
+text = "Get Data from Server"
 script = ExtResource( 40 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="Button2"]
@@ -171,7 +170,6 @@ margin_left = 219.0
 margin_top = 7.0
 margin_right = 964.0
 margin_bottom = 56.0
-script = ExtResource( 41 )
 
 [node name="Save" type="Button" parent="."]
 margin_left = 497.321
@@ -179,7 +177,6 @@ margin_top = 0.0856857
 margin_right = 551.321
 margin_bottom = 50.0857
 text = "Save"
-script = ExtResource( 42 )
 
 [node name="load" type="Button" parent="."]
 margin_left = 552.0
@@ -194,9 +191,17 @@ margin_top = 1.0
 margin_right = 655.0
 margin_bottom = 50.0
 text = "new"
+
+[node name="removeSaveFile" type="Button" parent="."]
+margin_left = 655.0
+margin_top = -1.0
+margin_right = 708.0
+margin_bottom = 50.0
+text = "delete"
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="Button2" method="_on_Button2_pressed"]
 [connection signal="pressed" from="Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="newGame" to="." method="_on_newGame_pressed"]
+[connection signal="pressed" from="removeSaveFile" to="." method="_on_removeSaveFile_pressed"]
