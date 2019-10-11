@@ -5,12 +5,14 @@ var score = 0
 var lives = 0
 
 
-
 func _ready():
+	
 	var dir = Directory.new()
-	if !dir.dir_exists("res://Saves"):
-		dir.open("res://")
-		dir.make_dir("res://Saves")
+	if !dir.dir_exists("user://"):
+		dir.open("user://")
+		dir.make_dir("user://")
+	if OS.is_userfs_persistent():
+		print("IndexedDB works")
 		
 func get_score():
 	return score
@@ -41,7 +43,7 @@ var GameData = {
 
 func save_game_state(var saveName):
 	var saveGame = File.new()
-	saveGame.open("res://Saves/" + saveName + ".json", File.WRITE)
+	saveGame.open("user://" + saveName + ".json", File.WRITE)
 	
 	var data = GameData
 	
@@ -63,14 +65,14 @@ func load_game_state(var saveName):
 	var loadGame = File.new()
 	
 	# see if the file actually exists before opening it
-	if !loadGame.file_exists("res://Saves/" + saveName + ".json"):
+	if !loadGame.file_exists("user://" + saveName + ".json"):
 		print("File not found! Aborting...")
 		return
 		
 	# use an empty dictionary to assign temporary data to
 	var currentLine = {}
 	# read the data in
-	loadGame.open("res://Saves/" + saveName + ".json", File.READ)
+	loadGame.open("user://" + saveName + ".json", File.READ)
 	currentLine = parse_json(loadGame.get_line())
 
 	currentLevel = currentLine["level"]
@@ -93,11 +95,11 @@ func load_game_state(var saveName):
 func new_game(saveName):
 	
 	var loadGame = Directory.new()
-	if loadGame.file_exists("res://Saves/" + saveName + ".json"):
-		loadGame.remove("res://Saves/")
+	if loadGame.file_exists("user://" + saveName + ".json"):
+		loadGame.remove("user://" + saveName + ".json")
 		
 	#initialize default variables
-	currentLevel = "res://FirstScene.tscn"
+	currentLevel = "user://FirstScene.tscn"
 	set_score(0)
 	set_lives(4)
 	set_level(currentLevel)
@@ -107,10 +109,16 @@ func new_game(saveName):
 	print(get_score())
 	
 func delete_game(saveName):
+	set_score(0)
+	set_lives(0)
+	set_level(currentLevel)
 	var loadGame = Directory.new()
-	if loadGame.file_exists("res://Saves/" + saveName + ".json"):
-		loadGame.remove("res://Saves/" + saveName + ".json")
+	if loadGame.file_exists("user://" + saveName + ".json"):
+		loadGame.remove("user://" + saveName + ".json")
 	print ('removed')
+	print(get_level())
+	print(get_lives())
+	print(get_score())
 
 func _on_Button_pressed():
 	get_tree().quit()
@@ -121,7 +129,6 @@ func _on_Save_pressed():
 
 func _on_load_pressed():
 	load_game_state("MyGame")
-	print("load Complete")
 
 func _on_newGame_pressed():
 	new_game("MyGame")
